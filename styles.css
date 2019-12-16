@@ -1,0 +1,26 @@
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+
+.C1{
+  float: left;
+  background-color: yellow;
+  height: 50%;
+  width: 50%;
+}
+
+.C2{
+  float: right;
+  height: 50%;
+  width: 50%;
+}
