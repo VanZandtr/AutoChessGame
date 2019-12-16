@@ -121,7 +121,6 @@ function start() {
 
  var linebreak = document.createElement('br');
  newdiv1.appendChild(linebreak);
- 
  document.body.appendChild(newdiv1);
 }
 
@@ -134,4 +133,40 @@ function chosen_planeswalker(planeswalker){
  //clear screen
  document.body.innerHTML = '';
  console.log(planeswalker);
+
+ var newdiv1 = document.createElement("div")
+ newdiv1.className = "Face";
+ var textnode = document.createTextNode(planeswalker.name);
+ newdiv1.appendChild(textnode);
+ 
+ var health_button = document.createElement("BUTTON");
+ health_button.classList.add("HB");
+ health_button.innerHTML = planeswalker.health;
+
+ var loyalty_button = document.createElement("BUTTON");
+ loyalty_button.classList.add("LB");
+ loyalty_button.innerHTML = planeswalker.loyalty;
+
+ var up_button = document.createElement("BUTTON");
+ up_button.classList.add("UB");
+ up_button.innerHTML = planeswalker.up;
+ 
+ var down_button = document.createElement("BUTTON");
+ down_button.classList.add("DB");
+ down_button.innerHTML = planeswalker.down;
+ 
+ var ult_button = document.createElement("BUTTON");
+ ult_button.classList.add("ULTB");
+ ult_button.innerHTML = planeswalker.ult;
+
+
+ document.body.appendChild(newdiv1);
+ document.body.appendChild(health_button);
+ document.body.appendChild(loyalty_button);
+ document.body.appendChild(up_button);
+ document.body.appendChild(down_button);
+ document.body.appendChild(ult_button);
+ 
+
+
 }

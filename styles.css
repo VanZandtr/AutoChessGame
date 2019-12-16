@@ -14,7 +14,6 @@ p {
 
 .C1{
   float: left;
-  background-color: yellow;
   height: 50%;
   width: 50%;
 }
@@ -23,4 +22,59 @@ p {
   float: right;
   height: 50%;
   width: 50%;
+}
+
+.Face{
+  display: table-cell;
+  height: 200px;
+  width: 200px;
+  background-color: #555;
+  position: relative;
+  bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  left: 850px;
+  top: 750px;
+}
+
+.HB{
+ height: 20px;
+ width: 30px;
+ position: absolute;
+ background-color: red;
+ left: 1025px;
+ top: 935px;
+}
+
+.LB{
+  height: 20px;
+  width: 30px;
+  position: absolute;
+  background-color: gray;
+  left: 1025px;
+  top: 910px;
+}
+.UB{
+  height: 20px;
+  width: 30px;
+  position: absolute;
+  background-color: lightgreen;
+  left: 862px;
+  top: 885px;
+}
+.DB{
+  height: 20px;
+  width: 30px;
+  position: absolute;
+  background-color: lightcoral;
+  left: 862px;
+  top: 910px;
+}
+.ULTB{
+  height: 20px;
+  width: 30px;
+  position: absolute;
+  background-color: orange;
+  left: 862px;
+  top: 935px;
 }
