@@ -1,5 +1,11 @@
 let pws = [];
 let cards = [];
+let hand = [];
+let field_cards = [];
+let hand_left = 1025;
+let hand_top =  750;
+let playing = false;
+var hand_index = 0;
 
 let jace = {
  name: 'Jace',
@@ -26,12 +32,10 @@ let snapcaster = {
     attack: 1,
     health: 2,
     ability: "flash",
+    hand_index: 0,
 };
 cards.push(snapcaster);
 let buy = false;
-let bought = 0;
-
-
 
 function start() {
 
@@ -155,8 +159,8 @@ function chosen_planeswalker(planeswalker){
  var textnode = document.createTextNode(planeswalker.name);
  newdiv1.appendChild(textnode);
  newdiv1.ondragover = function(event){
-     event.preventDefault();
-     buy = true;
+    event.preventDefault();
+    buy = true;
  }
  
  var health_button = document.createElement("BUTTON");
@@ -196,7 +200,6 @@ function chosen_planeswalker(planeswalker){
  document.body.appendChild(ult_button);
  
  buyphase(planeswalker);
- console.log(planeswalker.loyalty);
 
 }
 
@@ -213,7 +216,18 @@ console.log("ult clicked");
 }
 
 function buyphase(planeswalker){
+
+//create a field for cards
+ let field = document.createElement("div");
+ field.classList.add("field");
+ field['id'] = "f";
+ field.ondragover = function(event){
+    event.preventDefault();
+    playing = true;
+ }
  
+ document.body.appendChild(field);
+
  for(i = 0; i <=7; i++){
     var ran_num = Math.floor(Math.random()*cards.length);
     let card = document.createElement("div");
@@ -235,10 +249,6 @@ function buyphase(planeswalker){
         card_upclick(card, get_card);
     }
     document.body.appendChild(card);
-    childindex = (Array.prototype.indexOf.call(card.parentNode.children, card));
-    document.body.childNodes[childindex].innerHTML += childindex;
-    
-
     
  }
 
@@ -261,19 +271,90 @@ function card_onclick(){
 }
 
 function card_upclick(child, card){
- console.log("drag end");
- console.log(document.body.childNodes);
- console.log("num bought" + bought);
- if(buy == true){
-     let index = Array.prototype.indexOf.call(document.body.children, child);
-     console.log(index);
-    document.body.removeChild(document.body.childNodes[index]);
-    bought = 0;
-    childindex -=1;
+ if(hand.length >= 7){
+  console.log("Too many cards in hand");
  }
-
-
+ if(buy == true && hand.length < 7){
+    let index = Array.prototype.indexOf.call(document.body.children, child);
+    document.body.removeChild(document.body.childNodes[index]);
+    add_to_hand(card);
+ }
  buy = false;
 }
 
-//MAKE SURE TO SET BOUGHT TO 0!!!!!!
+function add_to_hand(crd){
+    //add to hand
+    let card = Object.assign({}, crd);
+    card.hand_index = hand_index;
+    hand_index++;
+    hand.push(card);
+
+    //make new card in hand
+    let new_card = document.createElement("div");
+    new_card.classList.add("hand");
+    new_card.innerHTML = card.name;
+    new_card.setAttribute('draggable', true);
+    new_card.ondragstart = function(){
+        hand_card_onclick();
+    }
+    new_card.ondragend = function(){
+        hand_card_upclick(new_card, card);
+    }
+    new_card.style.left = hand_left + "px";
+    new_card.style.top = hand_top + "px";
+    hand_left += 100;
+    document.body.appendChild(new_card);
+
+    console.log("hand: ", hand);
+}
+
+function hand_card_onclick(){
+    console.log("drag start");
+}
+   
+function hand_card_upclick(child, card){
+    console.log("FIX ISSUE WITH LAST CARD RANGE");
+
+    if(field_cards.length >= 8 && playing == true){
+        console.log("Too many cards on field");
+    }
+    if (field_cards.length < 8 && playing == true){
+        //index of removed child
+        let index = Array.prototype.indexOf.call(document.body.children, child);
+
+        //hand index of removed card
+        let card_index = card.hand_index;
+
+        //if not the last card
+        let counter = 1;
+        if(card_index != (hand.length)){
+            for(i = card_index + 1; i <hand.length; i++){
+                let old_left = document.body.children[index + counter].style.left
+                let new_left = (parseInt(old_left.split("px")[0]) - 100) + "px";
+                document.body.children[index + counter].style.left = new_left;
+                counter++;
+            }
+        }
+
+        //removing child
+        document.body.removeChild(document.body.childNodes[index]);
+        hand_left -= 100;
+        hand.pop(card);
+        add_to_field(card);
+    }
+    playing = false;
+}
+
+function add_to_field(card){
+    //make new card in on the field
+    let new_card = document.createElement("div");
+    new_card.classList.add("field_card");
+    new_card.innerHTML = card.name;
+
+    //get field div
+    let f = document.getElementById("f");
+
+    f.appendChild(new_card);
+}
+
+

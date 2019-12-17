@@ -87,10 +87,44 @@ p {
   margin-left: 80px;
   background-color: lightgray;
   -webkit-user-drag: element;
+  outline: 1px solid black;
 }
 
 .ADDL{
   position: absolute;
   left:0;
   bottom: 0;
+}
+
+.hand{
+  position: absolute;
+  float: left;
+  text-align: center;
+  height: 200px;
+  width: 140px;
+  margin-left: 40px;
+  background-color: lightseagreen;
+  -webkit-user-drag: element;
+  outline: 1px solid black;
+}
+
+.field{
+  position: absolute;
+  background-color:whitesmoke;
+  width: 1700px;
+  height: 200px;
+  left: 0px;
+  top: 500px;
+  margin-left: 100px;
+}
+
+.field_card{
+  float: left;
+  text-align: center;
+  height: 200px;
+  width: 140px;
+  margin-left: 40px;
+  background-color: lightseagreen;
+  -webkit-user-drag: element;
+  outline: 1px solid black;
 }
