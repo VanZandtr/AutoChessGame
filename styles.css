@@ -78,3 +78,19 @@ p {
   left: 862px;
   top: 935px;
 }
+
+.card{
+  float: left;
+  text-align: center;
+  height: 200px;
+  width: 140px;
+  margin-left: 80px;
+  background-color: lightgray;
+  -webkit-user-drag: element;
+}
+
+.ADDL{
+  position: absolute;
+  left:0;
+  bottom: 0;
+}
