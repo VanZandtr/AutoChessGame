@@ -3,7 +3,6 @@ let cards = [];
 let hand = [];
 let field_cards = [];
 let hand_left = 1025;
-let hand_top =  750;
 let playing = false;
 var hand_index = 0;
 
@@ -217,7 +216,7 @@ console.log("ult clicked");
 
 function buyphase(planeswalker){
 
-//create a field for cards
+ //create a field for cards
  let field = document.createElement("div");
  field.classList.add("field");
  field['id'] = "f";
@@ -251,6 +250,13 @@ function buyphase(planeswalker){
     document.body.appendChild(card);
     
  }
+
+ //make timer
+ var oneMinute = 60;
+ let timer = document.createElement("div");
+ timer.classList.add("timer");
+ document.body.appendChild(timer);
+ startTimer(oneMinute, timer);
 
  var add_loyalty = document.createElement("BUTTON");
  add_loyalty.classList.add("ADDL");
@@ -301,7 +307,6 @@ function add_to_hand(crd){
         hand_card_upclick(new_card, card);
     }
     new_card.style.left = hand_left + "px";
-    new_card.style.top = hand_top + "px";
     hand_left += 100;
     document.body.appendChild(new_card);
 
@@ -314,11 +319,11 @@ function hand_card_onclick(){
    
 function hand_card_upclick(child, card){
     console.log("FIX ISSUE WITH LAST CARD RANGE");
-
-    if(field_cards.length >= 8 && playing == true){
+    console.log(field_cards.length)
+    if(field_cards.length >= 7 && playing == true){
         console.log("Too many cards on field");
     }
-    if (field_cards.length < 8 && playing == true){
+    if (field_cards.length < 7 && playing == true){
         //index of removed child
         let index = Array.prototype.indexOf.call(document.body.children, child);
 
@@ -332,6 +337,7 @@ function hand_card_upclick(child, card){
                 let old_left = document.body.children[index + counter].style.left
                 let new_left = (parseInt(old_left.split("px")[0]) - 100) + "px";
                 document.body.children[index + counter].style.left = new_left;
+                document.body.children[index + counter].style.top = "200px";
                 counter++;
             }
         }
@@ -355,6 +361,23 @@ function add_to_field(card){
     let f = document.getElementById("f");
 
     f.appendChild(new_card);
+    field_cards.push(card);
 }
 
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.innerHTML = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
 
